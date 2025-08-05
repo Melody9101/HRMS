@@ -1,0 +1,33 @@
+.table-container{
+  padding-top: 20px;
+}
+
+.detail-btn {
+  border: none;
+  background-color: transparent;
+  color: #7CAFC2;
+}
+
+//復原狀態閃黃提醒
+td.highlight-row  {
+  background-color: #fff8d6 !important; // 柔和淡黃
+  transition: background-color 0.5s ease;
+}
+
+/* 表格第一列底色 */
+.header-row-style {
+  background-color: #e8e8e8;
+  color: #333;
+  font-weight: bold;
+}
+
+
+/* 斑馬條紋效果，方便閱讀 */
+.zebra-row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* 滑鼠在某一欄，那一欄會出現底色 */
+.zebra-row:hover {
+  background-color: #e3f2fd;
+}

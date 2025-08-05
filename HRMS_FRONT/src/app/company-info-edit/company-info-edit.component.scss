@@ -1,0 +1,76 @@
+/* 畫面的主標題 */
+.page-title {
+  margin-left: 10px;
+  color: rgb(70, 166, 240);
+}
+
+/* 小導覽條div的css */
+.breadcrumb-container {
+  background-color: rgb(203, 203, 203);
+  padding: 6px;
+  font-size: 16px;
+}
+
+/* 小導覽條的css */
+.breadcrumb {
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(70, 150, 230);
+  margin: 0 4px;
+  display: inline-block;
+}
+
+/* 滑鼠移至導覽條的字會出現底線 */
+.breadcrumb:hover {
+  text-decoration: underline;
+}
+
+/** 編輯公司資訊的背景css(呈現出小卡的樣式) **/
+.company-information-edit-box {
+  width: 800px;
+  margin: 20px auto;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); // 類似 mat-elevation-z8
+}
+
+/* 讓小卡內部的內容呈現成表格的樣式 */
+.form-wrapper {
+  display: grid; // 把這個表單變成「表格排版: Grid Layout」
+  grid-template-columns: 120px 1fr; // 定義 Grid 的欄數與寬度配置，左邊固定寬度、右邊自動填滿
+  gap: 45px 25px; // 每列之間距離16px，欄位間距25px
+  max-width: 800px; // 最寬不超過800px，max-width 與 margin: 0 auto一起搭配使用
+  margin: 0 auto; // 左右置中
+  padding: 30px; // 內部加空隙
+  align-items: center; // label 和輸入欄垂直對齊
+}
+
+/* 所有選擇、輸入框的css */
+.filter-css {
+  height: 40px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding-left: 8px;
+  font-size: 16px;
+}
+
+/* 更新公司資訊的按鈕的div */
+.edit-company-information-button-div {
+  margin-right: 30px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 更新公司資訊的按鈕 */
+.edit-company-information-button {
+  text-align: right;
+  color: white;
+  background-color: #7CAFC2;
+
+  &:hover {
+    background-color: #689DB2;
+  }
+}

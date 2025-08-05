@@ -1,0 +1,65 @@
+/* 畫面的主標題 */
+.page-title {
+  margin-left: 10px;
+  color: rgb(70, 166, 240);
+}
+
+/* 小導覽條div的css */
+.breadcrumb-container {
+  background-color: rgb(203, 203, 203);
+  padding: 6px;
+  font-size: 16px;
+}
+
+/* 小導覽條的css */
+.breadcrumb {
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(70, 150, 230);
+  margin: 0 4px;
+  display: inline-block;
+}
+
+/* 滑鼠移至導覽條的字會出現底線 */
+.breadcrumb:hover {
+  text-decoration: underline;
+}
+
+/* 第一個分頁(員工資本資訊)的css */
+/* 個人資訊顯示的表格的div */
+.company-information-box {
+  width: 800px;
+  margin: 20px auto;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); // 類似 mat-elevation-z8
+}
+
+/* 原生表格的全部css */
+/* 表格樣式 */
+.vertical-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Roboto, 'Noto Sans TC', sans-serif;
+  font-size: 14px;
+}
+
+/* 標題欄 */
+.vertical-table th {
+  width: 180px;
+  text-align: left;
+  padding: 10px 12px;
+  background-color: #e8e8e8;
+  color: #333;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* 數值欄 */
+.vertical-table td {
+  padding: 10px 12px;
+  text-align: left;
+  background-color: #fafafa;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}

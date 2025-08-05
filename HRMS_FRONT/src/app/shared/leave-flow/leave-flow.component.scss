@@ -1,0 +1,61 @@
+.leave-status-card {
+  max-width: 250px;
+  padding: 16px;
+  background: #fffffc;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.apply-time {
+  text-align: center;
+  font-size: 20px;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: center;
+}
+
+.detail-btn {
+  border: none;
+  border-radius: 3px;
+  width: 80px;
+  height: 40px;
+  color: #fffffc;
+  background-color: #7CAFC2;
+
+  &:hover {
+    background-color: #689DB2;
+  }
+}
+
+.supplement:hover{
+  background-color: #FFD76D;
+  color: #6C4B00;
+  cursor: default;
+}
+
+.submit-supplement {
+  padding-top: 10px;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  color: #e65100;
+  border: none;
+  background-color: transparent;
+
+  &:hover {
+    color: #bf360c;
+  }
+}
+
+.no-leave-bar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p{
+    margin: 0;
+  }
+}
+
+

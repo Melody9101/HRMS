@@ -1,0 +1,105 @@
+.page-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+.table-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
+.status-card {
+  padding-top: 50px;
+}
+
+.detail-btn {
+  border: none;
+  background-color: transparent;
+  color: #7CAFC2;
+}
+
+.search-bar-wrapper {
+  max-width: 100%;
+  border: 1px solid #CBD5E0;
+  /* 淡灰 */
+  border-radius: 6px;
+  background-color: #fff;
+  margin-bottom: 40px;
+}
+
+.search-desc {
+  h5 {
+    margin-right: 10px;
+  }
+
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.startDate,
+.endDate {
+  padding-top: 15px;
+  margin-right: 100px;
+}
+
+.search-btn {
+  color: white;
+  background-color: #7CAFC2;
+
+  &:hover {
+    background-color: #689DB2;
+  }
+}
+
+.apply-function {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.apply-leave-btn {
+  text-align: right;
+  color: white;
+  background-color: #7CAFC2;
+
+  &:hover {
+    background-color: #689DB2;
+  }
+}
+
+.cancel-leave-btn {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  justify-content: center;
+  color: #780000;
+}
+
+/* 表格第一列底色 */
+.header-row-style {
+  background-color: #e8e8e8;
+  color: #333;
+  font-weight: bold;
+}
+
+
+/* 斑馬條紋效果，方便閱讀 */
+.zebra-row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* 滑鼠在某一欄，那一欄會出現底色 */
+.zebra-row:hover {
+  background-color: #e3f2fd;
+}

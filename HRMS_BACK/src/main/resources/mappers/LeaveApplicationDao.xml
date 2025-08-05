@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+       "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper 標籤: 用來定義操作資料庫方法的 SQL 語句 -->
+<!-- namespace: 用來綁定特定 Dao 介面 -->
+<mapper namespace="com.example.Human_Resource_Management_System_HRMS_.dao.LeaveApplicationDao">
+  
+	<resultMap id="LeaveApplicationMap"
+	    	type="com.example.Human_Resource_Management_System_HRMS_.dto.LeaveApplicationDto">
+		<id property="leaveId" column="leave_id" />
+		<result property="employeeName" column="employee_name"/>
+		<result property="employerId" column="employer_id" />
+		<result property="startTime" column="start_time" />
+		<result property="endTime" column="end_time" />
+		<result property="leaveType" column="leave_type" />
+		<result property="certificate" column="certificate" />
+		<result property="applyDateTime" column="apply_date_time" />
+		<result property="reason" column="reason" />
+		<result property="status" column="status" />
+		<result property="approvalPendingRole" column="approval_pending_role" />
+		<result property="submitUp" column="submit_up" />
+		<result property="certificateFileType" column="certificate_file_type"/>
+	</resultMap>
+	
+	<insert id="insertLeaveApplication">
+		<!-- 原生 SQL 語句 -->
+		<!-- #{變數名稱}: 對應到 Dao 的方法參數中 @Param("變數名稱") -->
+		insert into leave_application (
+			 employer_id, 
+			 employee_name, 
+			 start_time, 
+			 end_time, 
+			 leave_type, 
+			 certificate, 
+			 submit_up, 
+			 apply_date_time, 
+			 reason, 
+			 status, 
+			 approval_pending_role,
+			 certificate_file_type
+		 ) values (
+			 #{employerId}, 
+			 #{employeeName}, 
+			 #{startTime}, 
+			 #{endTime}, 
+			 #{leaveType}, 
+			 #{certificate}, 
+			 #{submitUp}, 
+			 #{applyDateTime}, 
+			 #{reason}, 
+			 #{status}, 
+			 #{approvalPendingRole},
+			 #{certificateFileType})
+	</insert>
+	
+	<update id="updateStatusByLeaveId">
+		update leave_application set status = #{status} where leave_id = #{leaveId}
+	</update>
+	
+	
+	<delete id="deleteLeaveApplicationByLeaveId">
+		delete from leave_application where leave_id = #{leaveId}
+	</delete>
+	
+	
+	<select id="selectByLeaveId" resultMap="LeaveApplicationMap">
+		select * from leave_application where leave_id = #{leaveId}
+	
+	</select>
+	
+	<update id="updateByLeaveId">
+	    update leave_application set 
+	        certificate = #{certificate}, 
+	        status = #{status},
+	        certificate_file_type = #{certificateFileType}
+	     where leave_id = #{leaveId}
+	</update>
+	
+	<select id="selectByEmployeeIdAndDate" resultMap="LeaveApplicationMap">
+		select * from leave_application where employer_id = #{employerId}
+			 and start_time &gt;= #{startTime}
+     	     and end_time &lt;= #{endTime}
+	</select>
+	
+	<select id="selectByLeaveIdList" resultMap="LeaveApplicationMap">
+		select * from leave_application where leave_id in
+			<foreach item="idItem" collection="leaveIdList" open="(" separator="," close=")">
+				#{idItem}
+			</foreach>
+	</select>
+	
+	<select id="selectAll" resultMap="LeaveApplicationMap">
+		select * from leave_application
+	</select>
+	
+	
+ </mapper>

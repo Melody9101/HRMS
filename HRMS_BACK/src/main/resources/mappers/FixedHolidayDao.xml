@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.Human_Resource_Management_System_HRMS_.dao.FixedHolidayDao">
+
+    <resultMap id="FixedHolidayMap"
+    	type="com.example.Human_Resource_Management_System_HRMS_.dto.FixedHolidayDto">
+        <id column="month" property="month"/>
+        <id column="day" property="day"/>
+		<result property="name" column="name"/>
+    </resultMap>
+	
+    <insert id="insertFixedHoliday">
+        insert into fixed_holiday (month, day, name)
+        values
+        <foreach collection="dtoList" item="dto" separator=",">
+            (#{dto.month}, #{dto.day}, #{dto.name})
+        </foreach>
+    </insert>
+   
+	<select id="getAllFixedHoliday" resultMap="FixedHolidayMap">
+   		select * from fixed_holiday
+   	</select>
+   	
+   	<delete id="deleteHoliday">
+   		delete from fixed_holiday
+         where month = #{month} and day = #{day}
+    </delete>
+   
+</mapper>

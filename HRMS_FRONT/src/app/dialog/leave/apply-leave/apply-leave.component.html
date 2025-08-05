@@ -1,0 +1,115 @@
+<h3 mat-dialog-title>請假申請</h3>
+<mat-dialog-content>
+  <div class="form-column" [formGroup]="leaveForm">
+    <mat-form-field>
+      <mat-label>假別</mat-label>
+      <mat-select formControlName="leaveType" >
+        @for (type of leave.leaveTypes; track $index) {
+        <mat-option [value]="type.value" [disabled]="type.disabled">{{ type.viewValue }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- 請假日期時間 -->
+    <div class="start-time-row">
+      <mat-form-field class="choose-date-bar" appearance="outline">
+        <mat-label>請假開始日期</mat-label>
+        <input matInput [matDatepicker]="startPicker" formControlName="startDate" [min]="minDate" [max]="maxDate" />
+        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+      </mat-form-field>
+      <div class="clock-row">
+        <mat-form-field appearance="outline" class="clock-list">
+          <mat-label>時</mat-label>
+          <mat-select formControlName="startHour" (selectionChange)="updateSelectedTime()">
+            @for(hour of time.hourOpt ; track $index){
+            <mat-option [value]="hour">
+              {{ hour }}
+            </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="clock-list">
+          <mat-label>分</mat-label>
+          <mat-select formControlName="startMinute" (selectionChange)="updateSelectedTime()">
+            @for(min of time.minOpt; track $index){
+            <mat-option [value]="min">
+              {{ min }}
+            </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="end-time-row">
+      <mat-form-field class="choose-date-bar" appearance="outline">
+        <mat-label>請假結束日期</mat-label>
+        <input matInput [matDatepicker]="endPicker" formControlName="endDate"
+          [min]="leaveForm.get('startDate')?.value" />
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+      </mat-form-field>
+      <div class="clock-row">
+        <mat-form-field appearance="outline" class="clock-list">
+          <mat-label>時</mat-label>
+          <mat-select formControlName="endHour" (selectionChange)="updateSelectedTime()">
+            @for(hour of time.hourOpt ; track $index){
+            <mat-option [value]="hour">
+              {{ hour }}
+            </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="clock-list">
+          <mat-label>分</mat-label>
+          <mat-select formControlName="endMinute" (selectionChange)="updateSelectedTime()">
+            @for(min of time.minOpt; track $index){
+            <mat-option [value]="min">
+              {{ min }}
+            </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- 上傳檔案 -->
+    <div class="file-row">
+      <input type="file" id="uploadFile" accept=".pdf, .jpg , .jpeg , .png" (change)="handleFileUpload($event)"
+        hidden />
+      <label for="uploadFile">選擇檔案</label>
+      @if(getControl('certificate')?.value){
+      <a [href]="
+          leave.generatePreviewUrl(getControl('certificate')?.value ?? null)
+        " target="_blank">
+        {{ getControl("certificate")?.value?.name }}
+      </a>
+      }@else if(!getControl('certificate')?.value && fileErrorHint){
+      <mat-error class="error-hint">{{ fileErrorHint }}</mat-error>
+      }@else if(!getControl('certificate')?.value){
+      <span>僅接受PDF、JPG、PNG檔，大小不可超過300kB</span>
+      }
+    </div>
+
+    <textarea placeholder="請填入請假事由(上限200字)" style="resize: none; width: 400px; height: 100px" maxlength="200"
+      formControlName="reason"></textarea>
+    @if(getControl('reason')?.touched &&
+    getControl('reason')?.hasError('required')||
+    getControl('reason')?.hasError('maxlength')){
+    <mat-error> 請填寫事由，且不可超過200字</mat-error>
+    }
+  </div>
+  <mat-dialog-actions [align]="'end'">
+    <div class="btn-group" role="group">
+      <button mat-stroked-button class="btn cancel-btn" color="warn" (click)="onCancel()">
+        取消
+      </button>
+      <button mat-stroked-button class="btn confirm-btn" color="warn" (click)="checkError()">
+        預覽
+      </button>
+    </div>
+  </mat-dialog-actions>
+</mat-dialog-content>

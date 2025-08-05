@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.Human_Resource_Management_System_HRMS_.dao.AnnualHolidayDao">
+
+    <resultMap id="AnnualHolidayMap"
+    	type="com.example.Human_Resource_Management_System_HRMS_.dto.AnnualHolidayDto">
+        <id column="date" property="date"/>
+		<result property="name" column="name"/>
+		<result property="holiday" column="holiday"/>
+		<result property="createBy" column="create_by"/>
+		<result property="createAt" column="create_at"/>
+    </resultMap>
+  
+	<insert id="addAnnualHoliday">
+		insert into annual_holiday (date, name, holiday, create_by, create_at)
+		 values
+      <foreach collection="holidayList" item="dto" separator=",">
+            (#{dto.date}, #{dto.name}, #{dto.holiday}, #{dto.createBy}, #{dto.createAt})
+      </foreach>
+	</insert>
+
+	<select id="getAllAnnualHoliday" resultMap="AnnualHolidayMap">
+		select * from annual_holiday
+	</select>
+	
+	<update id="updateAnnualHoliday">
+		update annual_holiday set
+		 name = #{name},
+		 holiday = #{holiday},
+		 create_by = #{ceateBy},
+		 create_at = #{createAt}
+		 where date = #{date}
+	</update>
+
+	<delete id="deleteAnnualHoliday">
+		delete from annual_holiday where date = #{date}
+	</delete>
+	
+	<delete id="deleteAllAnnualHoliday">
+		delete from annual_holiday
+	</delete>
+
+</mapper>

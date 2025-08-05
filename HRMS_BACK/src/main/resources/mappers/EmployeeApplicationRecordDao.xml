@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.Human_Resource_Management_System_HRMS_.dao.EmployeeApplicationRecordDao">
+ 	<resultMap id="recordMap"
+    	type="com.example.Human_Resource_Management_System_HRMS_.dto.EmployeeApplicationRecordDto">
+    	<id property="applicationId" column="application_id" />
+    	<result property="employeeId" column="employee_id" />
+    	<result property="comment" column="comment" />
+    	<result property="type" column="type" />
+    	<result property="data" column="data" />
+    	<result property="applyDateTime" column="apply_date_time" />
+    	<result property="submitUp" column="submit_up" />
+    	<result property="approved" column="approved" />
+    	<result property="approverId" column="approver_id" />
+    	<result property="approverRole" column="approver_role" />
+    	<result property="rejectionReason" column="rejection_reason" />
+    	<result property="applicationGroup" column="application_group" />
+    	<result property="approvedDateTime" column="approved_date_time" />
+    	<result property="applyerId" column="applyer_id"/>
+    </resultMap>
+
+	<insert id="insertApplicationRecord" parameterType="com.example.Human_Resource_Management_System_HRMS_.dto.EmployeeApplicationRecordDto">
+		insert employee_application_record (
+         application_id,
+         employee_id,
+         comment,
+         type,
+         data,
+         apply_date_time,
+         submit_up,
+         approved,
+         approver_id,
+         approver_role,
+         rejection_reason,
+         application_group,
+         approved_date_time,
+         applyer_id
+    	)
+    	values (
+         #{applicationId},
+         #{employeeId},
+         #{comment},
+         #{type},
+         #{data},
+         #{applyDateTime},
+         #{submitUp},
+         #{approved},
+         #{approverId},
+         #{approverRole},
+         #{rejectionReason},
+         #{applicationGroup},
+         #{approvedDateTime},
+         #{applyerId}
+    	)
+	</insert>
+
+
+</mapper>

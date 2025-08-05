@@ -1,0 +1,30 @@
+<div class="leave-status-card">
+
+  @if(recentLeave){
+  <p class="apply-time">
+    {{ time.formatISODateTimeString(recentLeave.applyDateTime) }}<br />申請的假單狀態
+  </p>
+  <div class="status-bar">
+    <button
+      disabled
+      class="status-word"
+      [ngClass]="leave.getStatusClass(recentLeave.status)"
+    >
+      {{ leave.formatStatus(recentLeave.status) }}
+    </button>
+    <button
+      class="detail-btn"
+      type="button"
+      (click)="leave.openDetail(recentLeave)"
+    >
+      檢視假單
+    </button>
+  </div>
+  @if(recentLeave.status.toLowerCase()==='pending supplement'){
+  <button type="button" class="submit-supplement" (click)="openSupplementDialog(recentLeave)">補證明文件</button>
+  } }@else {
+    <div class="no-leave-bar">
+      <p class="no-leave">目前無申請中的假單</p>
+    </div>
+  } 
+</div>

@@ -1,0 +1,79 @@
+<!-- 顯示目前在哪個頁面 -->
+<h4 class="page-title">薪資管理</h4>
+
+<!-- 小導覽條 -->
+<div class="breadcrumb-container">
+  <span class="breadcrumb" (click)="backToHome()">首頁</span>
+  &nbsp;/&nbsp;
+  <span class="breadcrumb" (click)="backToEmployeeList()">員工清單</span>
+  &nbsp;/&nbsp;
+  <span class="breadcrumb" (click)="backToSalaryManagement()">薪資管理</span>
+</div>
+
+<div class="form-wrapper">
+  <div class="create-box">
+    <form [formGroup]="formGroupCalc" class="form-wrapper">
+      <!-- 員工選擇 -->
+      <label>員工姓名</label>
+      <select class="filter-css" [(ngModel)]="selectedEmployeeId" (change)="onEmployeeChange()"
+        [ngModelOptions]="{ standalone: true }">
+        @for (employee of employees; track employee.id) {
+        <option [value]="employee.id">{{ employee.name }}</option>
+        }
+      </select>
+
+      <label>員工編號</label>
+      <input class="filter-css" [value]="employeeId" readonly />
+
+      <label>基本薪資</label>
+      <input class="filter-css" [value]="baseSalary" readonly />
+
+      <label>年份</label>
+      <select class="filter-css" formControlName="year">
+        @for (year of years; track year) {
+        <option [value]="year">{{ year }}年</option>
+        }
+      </select>
+
+      <label>月份</label>
+      <select class="filter-css" formControlName="month">
+        @for (month of months; track month) {
+        <option [value]="month">{{ month }}月</option>
+        }
+      </select>
+
+      <label>獎金</label>
+      <input class="filter-css" type="number" formControlName="bonus" />
+      @if (formGroupCalc.get("bonus")?.invalid && formGroupCalc.get("bonus")?.touched) {
+      <div class="error-text">
+        <mat-icon class="error-icon">error</mat-icon> 請輸入正確的獎金（不可為負數）
+      </div>
+      }
+
+      <label>試算結果</label>
+      @if (calculatedSalary != null) {
+      <div>
+        {{ calculatedSalaryDetail?.finalCalculatedSalary | number }} 元
+      </div>
+      <label>總扣款</label>
+      <div>
+        {{ calculatedSalaryDetail?.totalDeductionForMonth | number }} 元
+      </div>
+      <label>特休折現</label>
+      <div>
+        {{ calculatedSalaryDetail?.previousAnnualLeaveConvertedPay | number }} 元
+      </div>
+      <label>前一年特休剩餘</label>
+      <div>
+        {{ calculatedSalaryDetail?.remainingPreviousAnnualLeave }} 天
+      </div>
+      } @else {
+      <div style="color: gray;">輸入完畢後將顯示試算結果</div>
+      }
+    </form>
+    <div class="salary-button-div">
+      <button type="button" class="btn calculate-salary-btn" (click)="calculate()">試算薪資</button>
+      <button type="button" class="btn create-salary-btn" (click)="confirm()" [disabled]="isSubmitting">建立薪資</button>
+    </div>
+  </div>
+</div>

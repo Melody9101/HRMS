@@ -1,0 +1,27 @@
+.form-column{
+  display: flex;
+  flex-direction: column;
+}
+
+.clock-row{
+  display: flex;
+  justify-content:space-between;
+  .clock-list{
+    width: 110px;
+  }
+}
+
+.confirm-btn {
+  color: white;
+  background-color: #7CAFC2;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #91BDD0;
+  }
+}
+
+.mat-mdc-dialog-actions{
+  padding: 0;
+  padding-bottom: 10px;
+}

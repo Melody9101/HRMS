@@ -1,0 +1,103 @@
+/* 畫面的主標題 */
+.page-title {
+  margin-left: 10px;
+  color: rgb(70, 166, 240);
+}
+
+/* 小導覽條div的css */
+.breadcrumb-container {
+  background-color: rgb(203, 203, 203);
+  padding: 6px;
+  font-size: 16px;
+}
+
+/* 小導覽條的css */
+.breadcrumb {
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(70, 150, 230);
+  margin: 0 4px;
+  display: inline-block;
+}
+
+/* 滑鼠移至導覽條的字會出現底線 */
+.breadcrumb:hover {
+  text-decoration: underline;
+}
+
+/* 整個搜尋功能的div */
+.search-div-css {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* 部門、職等、在職狀態的CSS */
+.select-div-css {
+  display: flex;
+  /* 讓「部門」跟 mat-select 垂直置中 */
+  align-items: center;
+  /* 控制字與下拉選單的距離 */
+  gap: 25px;
+}
+
+/* 所有篩選器的css */
+.filter-css {
+  height: 40px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+/* 新增員工按鈕的div */
+.create-employee-button-div {
+  margin-right: 17px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 新增員工的按鈕 */
+.create-employee-button {
+  text-align: right;
+  color: white;
+  background-color: #7CAFC2;
+
+  &:hover {
+    background-color: #689DB2;
+  }
+}
+
+/* 員工清單表格的div */
+.employee-box-css {
+  width: 98%;
+  margin: 10px auto 0 auto;
+  padding: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: white;
+}
+
+/* 表格第一列底色 */
+.header-row-style {
+  background-color: #e8e8e8;
+  color: #333;
+  font-weight: bold;
+}
+
+/* 離職員工反灰 */
+.resigned-row {
+  background-color: #f0f0f0;
+  color: gray;
+}
+
+/* 斑馬條紋效果，方便閱讀 */
+.zebra-row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* 滑鼠在某一欄，那一欄會出現底色 */
+.zebra-row:hover {
+  background-color: #e3f2fd;
+}

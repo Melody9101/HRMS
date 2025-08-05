@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="login-container">
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+      <h3 style="padding-top: 10px ; padding-bottom: 10px;;">登入hrms系統</h3>
+      <div class="form-field" [class.focused]="filedFocus['account']">
+        <input type="text" formControlName="account" placeholder="請輸入電子信箱" style="width: 250px" required
+          (focus)="isFocused('account')" (blur)="onFieldBlur('account')" />
+      </div>
+      <span style="margin: 0; padding-top: 5px;" class="input-error"
+        [class.show]="showFieldError('account') && formControls['account'].errors?.['required']">帳號為必填欄位</span>
+      <br />
+      <div class="form-field" [class.focused]="filedFocus['password']">
+        <input [type]="hidePassword ? 'password' : 'text'" formControlName="password" style="width: 250px"
+          placeholder="請輸入密碼" required (focus)="isFocused('password')" (blur)="onFieldBlur('password')" />
+        <button class="visibility" (click)="changeVisibility()" type="button">
+          <mat-icon>{{
+            hidePassword ? "visibility_off" : "visibility"
+            }}</mat-icon>
+        </button>
+      </div>
+      <span class="input-error"
+        [class.show]="showFieldError('password') && formControls['password'].errors?.['required']">密碼為必填欄位</span>
+
+      <button class="btn login-btn" (click)="login()" [disabled]="loginForm.invalid">
+        登入
+      </button>
+      <a class="forgot-pwd" routerLink="/forgot-password" >忘記密碼?</a>
+      <p class="login-error" [class.show]="showError">{{ loginError }}</p>
+    </form>
+  </div>
+</div>

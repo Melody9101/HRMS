@@ -1,0 +1,70 @@
+<!-- 顯示目前在哪個頁面 -->
+<h4 class="page-title">編輯公司資訊</h4>
+
+<!-- 小導覽條 -->
+<div class="breadcrumb-container">
+  <span class="breadcrumb" (click)="backToHome()">首頁</span>
+  &nbsp;/&nbsp;
+  <span class="breadcrumb" (click)="backToCompanyInfo()">公司資訊</span>
+  &nbsp;/&nbsp;
+  <span class="breadcrumb" (click)="backToCompanyInfoEdit()">編輯公司資訊</span>
+</div>
+
+<form [formGroup]="formGroup" (ngSubmit)="submit()">
+  <div class="company-information-edit-box">
+    <div class="form-wrapper">
+      <label>公司名稱</label>
+      <input class="filter-css" type="text" formControlName="name" />
+
+      <label>統一編號</label>
+      <input class="filter-css" type="text" formControlName="taxIdNumber" />
+
+      <label>負責人</label>
+      <input class="filter-css" type="text" formControlName="ownerName" />
+
+      <label>電話</label>
+      <input class="filter-css" type="text" formControlName="phone" />
+
+      <label>Email</label>
+      <input class="filter-css" type="text" formControlName="email" />
+
+      <label>地址</label>
+      <input class="filter-css" type="text" formControlName="address" />
+
+      <label>網站</label>
+      <input class="filter-css" type="text" formControlName="website" />
+
+      <label>成立日期</label>
+      <input class="filter-css" type="date" formControlName="establishmentDate" />
+
+      <label>資本額</label>
+      <input class="filter-css" type="number" formControlName="capitalAmount" />
+
+      <label>員工數</label>
+      <input class="filter-css" type="number" formControlName="employeeCount" />
+
+      <label>狀態</label>
+      <input class="filter-css" type="text" formControlName="status" />
+
+      <label>上班時間</label>
+      <input class="filter-css" type="time" formControlName="workStartTime" />
+
+      <label>午休開始時間</label>
+      <input class="filter-css" type="time" formControlName="lunchStartTime" />
+
+      <label>午休結束時間</label>
+      <input class="filter-css" type="time" formControlName="lunchEndTime" />
+
+      <label for="timezone">時區</label>
+      <select id="timezone" class="filter-css" formControlName="timezone">
+        @for (timezone of timezoneOptions; track timezone.value) {
+        <option [value]="timezone.value">{{ timezone.label }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="edit-company-information-button-div">
+      <button type="submit" class="btn edit-company-information-button">更新公司資訊</button>
+    </div>
+  </div>
+</form>

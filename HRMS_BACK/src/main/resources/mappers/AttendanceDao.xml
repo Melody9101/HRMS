@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.Human_Resource_Management_System_HRMS_.dao.AttendanceDao">
+
+    <resultMap id="AttendanceMap"
+    	type="com.example.Human_Resource_Management_System_HRMS_.dto.AttendanceDto">
+        <id column="id" property="id"/>
+       	<result property="employeeId" column="employee_id" />
+		<result property="clockIn" column="clock_in" />
+		<result property="clockOut" column="clock_out" />
+		<result property="finalUpdateDate" column="final_update_date" />
+		<result property="finalUpdateEmployeeId" column="final_update_employee_id" />
+    </resultMap>
+   
+   
+	<insert id="clockIn">
+		insert into attendance (employee_id, clock_in) values (#{employeeId}, #{clockIn})
+	</insert>
+ 
+	<update id="clockOutById">
+		update attendance set clock_out = #{clockOut} where id = #{id}
+	</update>
+	
+	<insert id="clockOut">
+		insert into attendance (employee_id, clock_out) values (#{employeeId}, #{clockOut})
+	</insert>
+	
+	<update id="updateClockTime">
+    	update attendance
+    		<set>
+        		<if test="clockIn != null">
+            		 clock_in = #{clockIn},
+        		</if>
+        		<if test="clockOut != null">
+            		 clock_out = #{clockOut},
+        		</if>
+					 final_update_date = #{finalUpdateDate},
+    				 final_update_employee_id = #{finalUpdateEmployeeId}
+    		</set>
+    	 where id = #{id}
+	</update>
+	
+	<select id="findTodayClockInRecordsByEmployeeId" resultMap="AttendanceMap">
+		select * from attendance where employee_id = #{employeeId} 
+		 and clock_in >= CURRENT_DATE()
+		 and clock_in &lt; CURRENT_DATE() + INTERVAL 1 DAY
+	</select>
+	
+	<select id="findTodayClockOutRecordsByEmployeeId" resultMap="AttendanceMap">
+		select * from attendance where employee_id = #{employeeId} 
+		 and clock_out >= CURRENT_DATE()
+		 and clock_out &lt; CURRENT_DATE() + INTERVAL 1 DAY
+	</select>
+	
+	<select id="selectByEmployeeIdAndDate" resultMap="AttendanceMap">
+		select * from attendance where employee_id = #{employeeId} 
+		 and (clock_in between #{startTime} and #{endTime}
+		 or clock_out between #{startTime} and #{endTime})
+	</select>
+	
+	<select id="selectAllAttendanceByDate" resultMap="AttendanceMap">
+		select * from attendance where clock_in between #{startTime} and #{endTime} 
+		 or clock_out between #{startTime} and #{endTime}
+	</select>
+	
+	<select id="selectAttendanceById" resultMap="AttendanceMap">
+		select * from attendance where id = #{id}
+	</select>
+	
+</mapper>

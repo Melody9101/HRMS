@@ -1,0 +1,128 @@
+/* 小導覽條div的css */
+.breadcrumb-container {
+  background-color: rgb(203, 203, 203);
+  padding: 6px;
+  font-size: 16px;
+}
+
+/* 小導覽條的css */
+.breadcrumb {
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(70, 150, 230);
+  margin: 0 4px;
+  display: inline-block;
+}
+
+/* 滑鼠移至導覽條的字會出現底線 */
+.breadcrumb:hover {
+  text-decoration: underline;
+}
+
+.container-fluid {
+  display: flex;
+  flex-direction: row;
+}
+
+
+.card-container {
+  margin: 0 auto;
+  width: 70%;
+  padding-top: 30px;
+  ;
+  gap: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.right-section {
+  padding-top: 30px;
+  margin: 0 auto;
+}
+
+
+
+.clock-time-btn {
+  color: #fffffc;
+  font-weight: 500;
+  width: 100px;
+  height: 100px;
+  border: none;
+  border-radius: 5%;
+}
+
+.clock-in-card {
+  margin-bottom: 20px;
+  width: 250px;
+  padding: 16px;
+  background: #fffffc;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.clock-in-card-top {
+  padding-top: 5px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+
+  .notifications-btn {
+    border: none;
+    background-color: transparent;
+    color: #2F4F6E;
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.clock-row {
+  display: flex;
+  justify-content: center;
+}
+
+.clock-time-row {
+  display: flex;
+  gap: 5px;
+  color: #fffffc;
+
+  .clock-in-btn {
+    background-color: #7CAFC2;
+
+    &:hover {
+      background-color: #689DB2;
+    }
+
+    &:disabled {
+      background-color: #A9C6D0;
+      cursor: not-allowed;
+    }
+  }
+
+  .clock-out-btn {
+    background-color: #5B8EA3;
+
+    &:hover {
+      background-color: #4C7D92;
+    }
+
+    &:disabled {
+      background-color: #A9C6D0;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.add-record-btn {
+  padding-top: 10px;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  color: #4B6C8D;
+  border: none;
+  background-color: transparent;
+
+  &:hover {
+    color: #2F4F6E;
+  }
+}

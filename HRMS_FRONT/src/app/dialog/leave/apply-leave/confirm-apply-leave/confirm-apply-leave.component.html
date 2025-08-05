@@ -1,0 +1,40 @@
+<div class="leave-detail-panel">
+  <h5 class="detail-title">{{ data.title }}</h5>
+  <mat-divider></mat-divider>
+
+  <table class="detail-table">
+    <tr>
+      <td class="label">假別</td>
+      <td class="content">
+        {{ leave.formatLeaveType(data.leaveType) }}
+      </td>
+    </tr>
+    <tr>
+      <td class="label">請假時間</td>
+      <td class="content">{{ data.startTime }} ~{{ data.endTime }}</td>
+    </tr>
+    <tr>
+      <td class="label">請假理由</td>
+      <td class="content">{{ data.reason }}</td>
+    </tr>
+    <tr>
+      <td class="label">請假證明</td>
+      <td class="content">
+        @if (data.certificate) {
+        <a [href]="leave.generatePreviewUrl(data.certificate)" target="_blank">
+          證明文件預覽
+        </a>
+        } @else {
+        <p style="margin: 0;">無</p>
+        }
+      </td>
+    </tr>
+  </table>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions [align]="'end'">
+    <div class="btn-group" role="group">
+      <button class="btn cancel-btn" (click)="onCancel()">修改</button>
+      <button class="btn confirm-btn" color="warn" (click)="onConfirm()">送出</button>
+    </div>
+  </mat-dialog-actions>
+</div>

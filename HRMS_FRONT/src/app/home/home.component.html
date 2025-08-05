@@ -1,0 +1,56 @@
+<!-- 顯示目前在哪個頁面 -->
+<h4 style="margin-left: 10px; color:rgb(70, 166, 240)">首頁</h4>
+
+<!-- 小導覽條 -->
+<div class="breadcrumb-container">
+  <span class="breadcrumb" (click)="backToHome()">首頁</span>
+</div>
+
+<div class="container-fluid">
+  <div class="card-container">
+    @for(function of finalFunctionList; track $index){
+    <app-function-card [title]="function.title" [description]="function.description" [icon]="function.icon" [badgeCount]="function.badgeCount"
+      (clickCard)="navigateTo(function.route)">
+    </app-function-card>
+    }
+  </div>
+  <div class="right-section">
+    <div class="clock-in-card">
+      <div class="clock-in-card-top">
+        <p>{{ currentTime }}</p>
+        <button
+          class="notifications-btn"
+          type="button"
+          #notifyBtn
+          (click)="openNotificationDialog(notifyBtn)"
+        >
+          <mat-icon matBadge={{notificationCount}} [matBadgeHidden]="notificationCount===0"> notifications_none</mat-icon>
+        </button>
+      </div>
+      <div class="clock-row">
+        <div class="clock-time-row">
+          <button
+            type="button"
+            class="clock-time-btn clock-in-btn"
+            (click)="clockIn()"
+            [disabled]="!!clockInTime"
+          >
+            上班<br />{{clockInTimeStr}}
+          </button>
+          <button
+            type="button"
+            class="clock-time-btn clock-out-btn"
+            (click)="clockOut()"
+           
+          >
+            下班<br />{{ clockOutTimeStr }}
+          </button>
+        </div>
+      </div>
+      <button type="button" class="add-record-btn" (click)="openClockRecord()">
+        補打卡及加班申請
+      </button>
+    </div>
+    <app-leave-flow></app-leave-flow>
+  </div>
+</div>

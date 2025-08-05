@@ -1,0 +1,166 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #F7F9FA;
+  color: #333333;
+}
+
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #F7F9FA;
+  color: #333333;
+}
+
+/* 表格的css，如果要共用我的之後可以直接用 */
+/* 小導覽條div的css */
+.breadcrumb-container {
+  background-color: rgb(203, 203, 203);
+  padding: 6px;
+  font-size: 16px;
+}
+
+/* 小導覽條的css */
+.breadcrumb {
+  text-decoration: none;
+  color: rgb(70, 150, 230);
+  transition: 0.2s ease;
+  margin: 0 4px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* 滑鼠移至導覽條的字會出現底線 */
+.breadcrumb:hover {
+  text-decoration: underline;
+}
+
+/** 新增的背景css(呈現出小卡的樣式) **/
+.create-box {
+  width: 800px;
+  margin: 20px auto;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); // 類似 mat-elevation-z8
+}
+
+/* 整個下拉式選單、輸入框和日期選擇器的css */
+.form-wrapper {
+  display: grid; // 把這個表單變成「表格排版: Grid Layout」
+  grid-template-columns: 120px 1fr; // 定義 Grid 的欄數與寬度配置，左邊固定寬度、右邊自動填滿
+  gap: 45px 25px; // 每列之間距離16px，欄位間距25px
+  max-width: 800px; // 最寬不超過800px，max-width 與 margin: 0 auto一起搭配使用
+  margin: 0 auto; // 左右置中
+  padding: 30px; // 內部加空隙
+  align-items: center; // label 和輸入欄垂直對齊
+}
+
+/* 所有選擇、輸入框的css */
+.filter-css {
+  height: 40px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding-left: 8px;
+  font-size: 16px;
+}
+
+/* 必填提示字的大小與位置 */
+.error-text {
+  height: 18px;
+  font-size: 14px;
+  color: red;
+}
+
+/* 必填提示圖示的大小與位置 */
+.error-icon {
+  width: 18px;
+  padding-top: 3px;
+  font-size: 15px;
+  vertical-align: middle;
+}
+
+/* 密碼輸入框 */
+.password-input-container input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+/* 密碼欄位容器（含眼睛 icon） */
+.password-input-container {
+  position: relative;
+}
+
+/* 密碼隱藏、顯示的按鈕 */
+.toggle-button {
+  position: absolute;
+  right: 8px;
+  top: 57%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* 密碼欄位包裝區塊，避免打破 grid 結構 */
+.input-error-block {
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .no-animation-dialog .mat-dialog-container {
+  animation: none !important;
+  transition: none !important;
+}
+
+.status-word {
+  border: none;
+  border-radius: 3px;
+  text-align: center;
+  width: 80px;
+  height: 40px;
+  margin-right: 5px;
+  font-weight: bold;
+  padding: 4px 12px;
+  font-size: 14px;
+  cursor: default;
+}
+
+.approved,
+.rejected {
+  background-color: #689DB2;
+  color: white;
+}
+
+.rejected {
+  background-color: #752140;
+}
+
+.pending {
+  background-color: #F7E7A1;
+  color: #5F4E05;
+}
+
+.supplement {
+  background-color: #FFD76D;
+  color: #6C4B00;
+}
+
+.cancelled {
+  background-color: #D3D3D3;
+  color: #555555;
+}

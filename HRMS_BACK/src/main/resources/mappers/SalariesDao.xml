@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.Human_Resource_Management_System_HRMS_.dao.SalariesDao">
+
+    <resultMap id="SalariesResultMap"
+    	type="com.example.Human_Resource_Management_System_HRMS_.dto.SalariesDto">
+        <id column="id" property="id"/>
+        <result column="year" property="year"/>
+        <result column="month" property="month"/>
+        <result column="employee_id" property="employeeId"/>
+        <result column="salary" property="salary"/>
+        <result column="bonus" property="bonus"/>
+        <result column="pay_date" property="payDate"/>
+        <result column="payer_id" property="payerId"/>
+        <result column="final_update_date" property="finalUpdateDate"/>
+        <result column="final_update_employee_id" property="finalUpdateEmployeeId"/>
+    </resultMap>
+    
+    <!-- 方法1: addSalaries新增薪資單。 -->
+	<insert id="addSalaries">
+		INSERT INTO salaries (year, month, employee_id, salary, bonus, pay_date, payer_id)
+        VALUES (#{year}, #{month}, #{employeeId}, #{salary}, #{bonus}, #{payDate}, #{payerId})
+	</insert>
+	
+	<!-- 方法2-countSalariesIdByEmpIdYYMM: 檢查當月薪資單是否有重複，每月僅一張薪資單。 -->
+	<select id="countSalariesIdByEmpIdYYMM">
+		select count(id) from salaries
+		where
+		employee_id = #{employeeId} AND 
+		year = #{year} AND 
+		month = #{month}
+	</select>
+	
+	<!-- 方法3: updateSalariesById更新(修改)薪資單。 -->
+	<update id="updateSalariesById">
+		UPDATE salaries
+		<set>
+            <if test="salary != null"> salary = #{salary}, </if>
+			<if test="bonus != null"> bonus = #{bonus}, </if>
+            final_update_date = #{finalUpdateDate},
+            final_update_employee_id = #{finalUpdateEmployeeId}
+		</set>
+        WHERE id = #{id}
+	</update>
+	
+	<!-- 方法4: getAllSalariesOrByEmployeeIdList查詢薪資單-帶入員工ID(IdList)、年度和月份。 -->
+	<select id="getAllSalariesOrByEmployeeIdList" resultMap="SalariesResultMap">
+		select * from salaries
+		<where>
+            year = #{year}
+            <if test="month != null">
+                AND month = #{month}
+            </if>
+            <if test="employeeIdList != null and !employeeIdList.isEmpty()">
+                AND employee_id IN
+                <foreach item="item" collection="employeeIdList" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+	</select>
+	
+	<!-- 方法5: getSalaryByEmployeeIdYYMM查詢薪資單-帶入員工ID、年度和月份。 -->
+	<select id="getSalaryByEmployeeIdYYMM" resultMap="SalariesResultMap">
+		select * from salaries
+		<where>
+			employee_id = #{employeeId}
+            AND year = #{year}
+            <if test="month != null">
+                AND month = #{month}
+            </if>
+       	</where>
+	</select>
+	
+</mapper>

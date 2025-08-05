@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+       "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper 標籤: 用來定義操作資料庫方法的 SQL 語句 -->
+<!-- namespace: 用來綁定特定 Dao 介面 -->
+<mapper namespace="com.example.Human_Resource_Management_System_HRMS_.dao.CompanyInfoDao">
+
+	<resultMap id="companyInfoMap" 
+		type="com.example.Human_Resource_Management_System_HRMS_.dto.CompanyInfoDto"> 
+		 <id property="id" column="id" />
+		 <result property="name" column="name" />
+		 <result property="taxIdNumber" column="tax_id_number" />
+		 <result property="ownerName" column="owner_name" />
+		 <result property="phone" column="phone" />
+		 <result property="email" column="email" />
+		 <result property="address" column="address" />
+		 <result property="website" column="website" />
+		 <result property="establishmentDate" column="establishment_date" />
+		 <result property="capitalAmount" column="capital_amount" />
+		 <result property="employeeCount" column="employee_count" />
+		 <result property="status" column="status" />
+		 <result property="createAt" column="create_at" />
+		 <result property="updateAt" column="update_at" />
+		 <result property="workStartTime" column="work_start_time" />
+		 <result property="lunchStartTime" column="lunch_start_time" />
+		 <result property="lunchEndTime" column="lunch_end_time" />
+		 <result property="timezone" column="timezone" /> 
+	</resultMap>
+	
+	<update id="updateCompanyInfo">
+		update company_info set 
+        	 name = #{name},
+        	 tax_id_number = #{taxIdNumber},
+        	 owner_name = #{ownerName},
+        	 phone = #{phone},
+        	 email = #{email},
+        	 address = #{address},
+        	 website = #{website},
+        	 establishment_date = #{establishmentDate},
+        	 capital_amount = #{capitalAmount},
+        	 employee_count = #{employeeCount},
+        	 status = #{status},
+        	 update_at = #{updateAt},
+        	 work_start_time = #{workStartTime},
+        	 lunch_start_time = #{lunchStartTime},
+        	 lunch_end_time = #{lunchEndTime},
+        	 timezone = #{timezone} 
+    	where id = #{id}
+	</update>
+	
+	<select id="checkCompanyInfo" resultMap="companyInfoMap">
+		select * from company_info where id = 1
+	</select>
+	
+ </mapper>

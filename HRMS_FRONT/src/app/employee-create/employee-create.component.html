@@ -1,0 +1,149 @@
+<!-- 顯示目前在哪個頁面 -->
+<h4 class="page-title">新增員工</h4>
+
+<!-- 小導覽條 -->
+<div class="breadcrumb-container">
+  <span class="breadcrumb" (click)="backToHome()">首頁</span>
+  &nbsp;/&nbsp;
+  <span class="breadcrumb" (click)="backToEmployeeList()">員工清單</span>
+  &nbsp;/&nbsp;
+  <span class="breadcrumb" (click)="backToEmployeeCreate()">新增員工</span>
+</div>
+
+<form [formGroup]="formGroup" (ngSubmit)="submit()">
+  <!-- 包裹整個表單 -->
+  <div class="create-box">
+    <div class="form-wrapper">
+
+      <!-- 部門的下拉式選單 -->
+      <label>部門</label>
+      <div>
+        <select class="filter-css" [formControl]="departmentControl">
+          <option [ngValue]="null">-- 請選擇部門 --</option>
+          @for (department of departments; track department) {
+          <option [ngValue]="department">{{ department.name }}</option>
+          }
+        </select>
+        @if (departmentControl.invalid && departmentControl.touched) {
+        <div class="error-text">
+          <mat-icon class="error-icon">error</mat-icon>請選擇部門
+        </div>
+        }
+      </div>
+
+      <!-- 職等的下拉式選單 -->
+      <label>職稱</label>
+      <div>
+        <select class="filter-css" [formControl]="positionControl">
+          <option [ngValue]="null">-- 請選擇職稱 --</option>
+          @for (position of positions ; track position) {
+          <option [ngValue]="position">{{ position.name }}</option>
+          }
+        </select>
+        @if (positionControl.invalid && positionControl.touched) {
+        <div class="error-text">
+          <mat-icon class="error-icon">error</mat-icon>請選擇職稱
+        </div>
+        }
+        @if (formGroup.hasError('positionGradeMismatch') && formGroup.touched) {
+        <div class="error-text">
+          <mat-icon class="error-icon">error</mat-icon>職稱與職等不符：總經理需為 11，主管為 6~10，員工為 1~5
+        </div>
+        }
+      </div>
+
+      <!-- 職等的下拉選單 -->
+      <label>職等</label>
+      <div>
+        <select class="filter-css" [formControl]="gradeControl">
+          <option [ngValue]="null">-- 請選擇職等 --</option>
+          @for (grade of availableGrades; track grade) {
+          <option [ngValue]="grade">{{ grade }}</option>
+          }
+        </select>
+
+        @if (gradeControl.invalid && gradeControl.touched) {
+        <div class="error-text">
+          <mat-icon class="error-icon">error</mat-icon>請選擇職等
+        </div>
+        }
+      </div>
+
+      <!-- 姓名的輸入框 -->
+      <label>姓名</label>
+      <div>
+        <input class="filter-css" type="text" [formControl]="nameControl" />
+        @if (nameControl.invalid && nameControl.touched) {
+        <div class="error-text">
+          <mat-icon class="error-icon">error</mat-icon>請填寫姓名
+        </div>
+        }
+      </div>
+
+      <!-- 性別的下拉式選單 -->
+      <label>性別</label>
+      <div>
+        <select class="filter-css" [formControl]="genderControl">
+          <option [ngValue]="null">-- 請選擇性別 --</option>
+          @for (gender of genders; track gender) {
+          <option [ngValue]="gender">{{ gender.name }}</option>
+          }
+        </select>
+        @if (genderControl.invalid && genderControl.touched) {
+        <div class="error-text">
+          <mat-icon class="error-icon">error</mat-icon>請選擇性別
+        </div>
+        }
+      </div>
+
+      <!-- 電話的輸入框 -->
+      <label>電話</label>
+      <div>
+        <input class="filter-css" type="text" [formControl]="phoneControl" />
+        @if (phoneControl.invalid && phoneControl.touched) {
+        <div class="error-text">
+          <mat-icon class="error-icon">error</mat-icon>請填寫電話
+        </div>
+        }
+      </div>
+
+      <!-- 電子信箱的輸入框 -->
+      <label>電子信箱</label>
+      <div>
+        <input class="filter-css" type="text" [formControl]="emailControl" />
+        @if (emailControl.invalid && emailControl.touched) {
+        <div class="error-text">
+          <mat-icon class="error-icon">error</mat-icon>請填寫電子信箱
+        </div>
+        }
+      </div>
+
+      <!-- 入職日期的日期選擇器 -->
+      <label>入職日期</label>
+      <div>
+        <input class="filter-css" type="date" [formControl]="entryDateControl" />
+        @if (entryDateControl.invalid && entryDateControl.touched) {
+        <div class="error-text">
+          <mat-icon class="error-icon">error</mat-icon>請選擇入職日期
+        </div>
+        }
+      </div>
+
+      <!-- 基本薪資的輸入框 -->
+      <label>基本薪資</label>
+      <div>
+        <input class="filter-css" type="number" formControlName="salaries" />
+        @if (formGroup.get("salaries")?.invalid && formGroup.get("salaries")?.touched) {
+        <div class="error-text">
+          <mat-icon class="error-icon">error</mat-icon>請輸入正確的薪資（最低 28590）
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- 送出的按鈕 -->
+    <div style="display: flex; justify-content: flex-end; padding-right: 4%;">
+      <button type="submit" class="btn create-employee-button">新增員工資訊</button>
+    </div>
+  </div>
+</form>

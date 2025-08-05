@@ -1,0 +1,65 @@
+<h3 mat-dialog-title>補打卡記錄</h3>
+<mat-dialog-content>
+  <div class="form-column">
+    <mat-form-field>
+      <mat-label>選擇補卡類型</mat-label>
+      <mat-select [(ngModel)]="selectedClockType">
+        @for (type of types; track $index) {
+        <mat-option [value]="type.value">{{ type.viewValue }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>選擇日期</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="selectedDate"
+        [max]="today"
+        [min]="minDate"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <div class="clock-row">
+      <mat-form-field appearance="outline" class="clock-list">
+        <mat-label>時</mat-label>
+        <mat-select
+          [(ngModel)]="selectedHour"
+          (selectionChange)="updateSelectedTime()"
+        >
+          @for(hour of time.hourOpt ; track $index){
+          <mat-option [value]="hour">
+            {{ hour }}
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="clock-list">
+        <mat-label>分</mat-label>
+        <mat-select
+          [(ngModel)]="selectedMinute"
+          (selectionChange)="updateSelectedTime()"
+        >
+          @for(min of time.minOpt; track $index){
+          <mat-option [value]="min">
+            {{ min }}
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-dialog-actions [align]="'end'">
+    <button
+      mat-stroked-button
+      class="btn confirm-btn"
+      color="warn"
+      (click)="onConfirm()"
+    >
+      送出
+    </button>
+  </mat-dialog-actions>
+</mat-dialog-content>

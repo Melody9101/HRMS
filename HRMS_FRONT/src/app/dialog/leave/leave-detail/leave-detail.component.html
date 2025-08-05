@@ -1,0 +1,158 @@
+<div class="leave-detail-panel">
+  <div class="dialog-head">
+    <h5 class="detail-title">請假詳情</h5>
+    <button type="button" class="close-btn" (click)="closeDialog(element)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <table class="detail-table">
+    <tr>
+      <td class="label">申請日期</td>
+      <td class="content">
+        {{ time.formatISODateTimeString(element.applyDateTime, false) }}
+      </td>
+    </tr>
+    <tr>
+      <td class="label">請假時間</td>
+      <td class="content">
+        {{ time.formatISODateTimeString(element.startTime) }} ~
+        {{ time.formatISODateTimeString(element.endTime) }}
+      </td>
+    </tr>
+    <tr>
+      <td class="label">申請假別</td>
+      <td class="content">
+        {{ takeLeave.formatLeaveType(element.leaveType) }}
+      </td>
+    </tr>
+    <tr>
+      <td class="label">申請狀態</td>
+      <td class="content">{{ takeLeave.formatStatus(element.status) }}</td>
+    </tr>
+    <tr>
+      <td class="label">請假理由</td>
+      <td class="content">{{ element.reason }}</td>
+    </tr>
+    <tr>
+      <td class="label">請假證明</td>
+      @if(element.certificate){
+      <td class="content">
+        <a [href]="certificateUrl" target="_blank">查看證明文件</a>
+      </td>
+      }@else {
+      <p class="content" style="margin-top: 5px">無</p>
+      }
+    </tr>
+  </table>
+  <mat-divider></mat-divider>
+
+
+  @if(element.status.toLowerCase()!=='cancel application' && !isReview){
+  <mat-accordion>
+    <mat-expansion-panel hideToggle #panel>
+      <mat-expansion-panel-header (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+        <mat-panel-title> <mat-icon class="arrow-drop">{{ panel.expanded ? 'arrow_drop_up' : 'arrow_drop_down'
+            }}</mat-icon>查看更多審核詳情</mat-panel-title>
+      </mat-expansion-panel-header>
+      <table class="detail-table">
+        <tr>
+          <td class="label">申請狀態</td>
+          <td class="content">
+            {{takeLeave.formatStatus(element.status)}}
+          </td>
+        </tr>
+
+        <tr>
+          @if(element.status.toLowerCase()==='pending review' || element.status.toLowerCase()==='pending supplement'){
+          <td class="label">當前審核職位</td>
+          }
+          @else{
+          <td class="label">最後審核職位</td>
+          }
+          <td class="content">
+            {{takeLeave.formatRoles(element.approvalPendingRole) }}
+          </td>
+        </tr>
+
+        @if(element.status.toLowerCase()==='rejected' || element.status.toLowerCase()==='approved'){
+        <tr>
+          <td class="label">最後審核時間</td>
+          <td class="content">
+            {{time.formatISODateTimeString(element.approvedDateTime) }}
+          </td>
+        </tr>
+        }
+        @if(element.status.toLowerCase()==='rejected'){
+        <tr>
+          <td class="label">駁回理由</td>
+          <td class="content">
+            {{takeLeave.formatRejectOption(element.rejectionReason)}}
+          </td>
+        </tr>
+        }
+      </table>
+    </mat-expansion-panel>
+  </mat-accordion>
+  }
+
+  @if(isReview){
+  <mat-accordion>
+    <mat-expansion-panel hideToggle #panel>
+      <mat-expansion-panel-header (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+        <mat-panel-title> <mat-icon class="arrow-drop">{{ panel.expanded ? 'arrow_drop_up' : 'arrow_drop_down'
+            }}</mat-icon>查看審核進度</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="review-flow">
+        @for(stage of displayStages ;track $index ; let i = $index ){
+        <div class="dot-desc">
+          <div class="dot" [ngClass]="{
+        'done': status[i] === 'done',
+        'now': status[i] === 'now',
+        'next': status[i] === 'next'
+      }"></div>
+      @if( status[i] === 'done' && stage !== "提交申請"){
+        <div class="stage-label" [ngClass]="{
+      'done': status[i] === 'done',
+      'now': status[i] === 'now',
+      'next': status[i] === 'next'
+    }">{{stage}} 核准</div>
+      }@else{
+         <div class="stage-label" [ngClass]="{
+      'done': status[i] === 'done',
+      'now': status[i] === 'now',
+      'next': status[i] === 'next'
+    }">{{stage}} </div>
+      }
+        </div>
+        @if(i < displayStages.length -1){ <div class="line" [ngClass]="{
+        'done': status[i] === 'done',
+        'now': status[i] === 'now',
+        'next': status[i] === 'next'
+      }">
+      </div>
+      }
+      }
+</div>
+</mat-expansion-panel>
+</mat-accordion>
+}
+
+<div class="action-section">
+  @if(isReview){
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-approve" (click)="approveLeave(element)">
+      批准
+    </button>
+    <button type="button" class="btn btn-reject" (click)="rejectLeave(element)">
+      駁回
+    </button>
+    <button type="button" class="btn btn-supplement" (click)="supplementLeave(element)">
+      補件
+    </button>
+  </div>
+  }
+</div>
+</div>

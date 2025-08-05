@@ -1,0 +1,125 @@
+<!-- 顯示目前在哪個頁面 -->
+<h4 style="margin-left: 10px; color:rgb(70, 166, 240)">員工復職</h4>
+
+<!-- 小導覽條 -->
+<div class="breadcrumb-container">
+  <span class="breadcrumb" (click)="backToHome()">首頁</span>
+  &nbsp;/&nbsp;
+  <span class="breadcrumb" (click)="backToReinstatement()">員工復職</span>
+</div>
+
+
+<!-- 員工Email的輸入框 -->
+<div class="search-div-css">
+  <div class="select-div-css">
+    <span>員工Email</span>
+    <input class="filter-css" [(ngModel)]="searchEmployeeEmail" placeholder="請輸入離職員工的Email" />
+
+    <!-- 員工電話的輸入框 -->
+    <span>員工電話</span>
+    <input class="filter-css" [(ngModel)]="searchEmployeePhone" placeholder="請輸入離職員工的電話" />
+
+    <!-- 查詢離職員工的按鈕 -->
+    <section>
+      <button mat-stroked-button (click)="searchDepartedEmployee()">查詢離職員工</button>
+    </section>
+  </div>
+</div>
+
+
+@if (departedEmployee) {
+<div class="personal-information-box">
+  <table class="vertical-table">
+    <tbody style="font-size: 18px;">
+
+      <tr>
+        <th>部門</th>
+        <td>{{ getDepartmentName(departedEmployee.department) }}</td>
+      </tr>
+
+      <tr>
+        <th>職稱</th>
+        <td>{{ getGradeLabel(departedEmployee) }}</td>
+      </tr>
+
+      <tr>
+        <th>職等</th>
+        <td>{{ departedEmployee.grade }}</td>
+      </tr>
+
+      <tr>
+        <th>姓名</th>
+        <td>{{ departedEmployee.name }}</td>
+      </tr>
+
+      <tr>
+        <th>性別</th>
+        <td>{{ departedEmployee.gender ? '男' : '女' }}</td>
+      </tr>
+
+      <tr>
+        <th>電話</th>
+        <td>{{ departedEmployee.phone }}</td>
+      </tr>
+
+      <tr>
+        <th>電子信箱</th>
+        <td>{{ departedEmployee.email }}</td>
+      </tr>
+
+      <tr>
+        <th>入職日期</th>
+        <td>{{ departedEmployee.entryDate }}</td>
+      </tr>
+
+      <tr>
+        <th>基本薪資</th>
+        <td>{{ departedEmployee.salaries }}</td>
+      </tr>
+
+      <tr>
+        <th>在職狀態</th>
+        <td>{{ departedEmployee.employed ? '在職' : '已離職' }}</td>
+      </tr>
+
+      @if (departedEmployee.resignationDate?.trim()) {
+      <tr>
+        <th>離職日期</th>
+        <td>{{ departedEmployee.resignationDate }}</td>
+      </tr>
+      }
+
+      @if (departedEmployee.resignationReason?.trim()) {
+      <tr>
+        <th>離職原因</th>
+        <td>{{ departedEmployee.resignationReason }}</td>
+      </tr>
+      }
+
+      @if (departedEmployee.unpaidLeaveStartDate?.trim()) {
+      <tr>
+        <th>留職停薪起</th>
+        <td>{{ departedEmployee.unpaidLeaveStartDate }}</td>
+      </tr>
+
+      <tr>
+        <th>留職停薪迄</th>
+        <td>{{ departedEmployee.unpaidLeaveEndDate }}</td>
+      </tr>
+
+      <tr>
+        <th>停薪原因</th>
+        <td>{{ departedEmployee.unpaidLeaveReason }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- 復職按鈕 -->
+<div style="text-align: right; margin-top: 16px;">
+  <button mat-flat-button color="primary" (click)="confirmReinstatement()">
+    確認復職
+  </button>
+</div>
+}

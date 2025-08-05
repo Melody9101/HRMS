@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.Human_Resource_Management_System_HRMS_.dao.EmployeeApplicationDao">
+
+    <resultMap id="ApplicationMap"
+    	type="com.example.Human_Resource_Management_System_HRMS_.dto.EmployeeApplicationDto">
+        <id column="id" property="id"/>
+        <result property="employeeId" column="employee_id" />
+        <result property="comment" column="comment" />
+        <result property="type" column="type" />
+        <result property="data" column="data" />
+        <result property="applyDateTime" column="apply_date_time" />
+        <result property="submitUp" column="submit_up" />
+        <result property="approvalPendingRole" column="approval_pending_role" />
+        <result property="applyerId" column="applyer_id"/>
+        <result property="applicationGroup" column="application_group"/>
+    </resultMap>
+	
+	<insert id="insertApplication" parameterType="com.example.Human_Resource_Management_System_HRMS_.dto.EmployeeApplicationDto"
+			 useGeneratedKeys="true" keyProperty="id">
+		 insert into employee_application (
+            employee_id,
+            comment,
+            type,
+            data,
+            apply_date_time,
+            submit_up,
+            approval_pending_role,
+            applyer_id,
+            application_group
+         )
+         values (
+            #{employeeId},
+            #{comment},
+            #{type},
+            #{data},
+            #{applyDateTime},
+            #{submitUp},
+            #{approvalPendingRole},
+            #{applyerId},
+            #{applicationGroup}
+        )
+	</insert>
+	
+	<update id="updateApplicationGroupIdById">
+		    update employee_application set 
+		     application_group = #{applicationGroup}
+    		where id = #{id}
+	</update>
+	
+	<select id="checkAllUpdateApplicationList" resultMap="ApplicationMap">
+		select * from employee_application
+	</select>
+	
+	<select id="getByApplicationId" resultMap="ApplicationMap">
+		select * from employee_application where id = #{id}
+	</select>
+	
+	<delete id="deleteByApplicationId">
+		delete from employee_application where id = #{id}
+	</delete>
+</mapper>

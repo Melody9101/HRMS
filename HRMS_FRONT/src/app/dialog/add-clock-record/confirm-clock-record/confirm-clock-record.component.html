@@ -1,0 +1,13 @@
+<h3 mat-dialog-title>{{data.title}}</h3>
+<mat-dialog-content>
+  <p>卡別:{{ data.clockType === 'clock-in' ? '上班 ': '下班'}}</p>
+  <p>日期:{{data.clockDate}}</p>
+  <p>時間:{{data.clockTime}}</p>
+</mat-dialog-content>
+<mat-dialog-actions [align]="'end'">
+  @if(showCancel){
+    <button mat-stroked-button class="cancel-btn" (click)="onCancel()">取消</button>
+  }
+    <button mat-stroked-button class="confirm-btn" color="warn" (click)="onConfirm()">送出</button>
+</mat-dialog-actions>
+

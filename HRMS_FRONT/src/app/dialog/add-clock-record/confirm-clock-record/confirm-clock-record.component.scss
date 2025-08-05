@@ -1,0 +1,22 @@
+.cancel-btn {
+  color: #666;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  margin-right: 8px;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+
+.confirm-btn {
+  color: white;
+  background-color: #7CAFC2;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #91BDD0;
+  }
+}

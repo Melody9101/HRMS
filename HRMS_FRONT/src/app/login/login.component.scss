@@ -1,0 +1,118 @@
+.container-fluid {
+  padding-top: 30px;
+}
+
+.font-color {
+  color: #333333;
+}
+
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f9fa;
+}
+
+.login-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 600px;
+  padding: 30px;
+  margin: 0 auto;
+  border: 1px solid #BCDFFB;
+  border-radius: 4px;
+  background: #EAF6FD;
+
+  .form-field {
+    width: 50%;
+    position: relative;
+    border: 1px solid #023047;
+    border-radius: 4px;
+    padding: 16px 12px 4px 12px;
+    background-color: white;
+
+    input {
+      border: none;
+      outline: none;
+      background: transparent;
+      margin-bottom: 10px;
+    }
+
+     &.focused {
+    border-color: #7cafc2;
+    box-shadow: 0 0 0 2px rgba(124, 175, 194, 0.15);
+  }
+  }
+
+  .input-error {
+    opacity: 0;
+    transform: translateY(-3px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    color: #e63946;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .input-error.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+
+
+  .login-error {
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    color: #e63946;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .login-error.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+
+  .password-label {
+    display: flex;
+  }
+
+
+
+  .visibility {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    color: #6c757d;
+  }
+
+}
+
+.login-btn {
+  width: 200px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  background-color: #A0C4DB;
+}
+
+.forgot-pwd{
+  text-decoration: none;
+  padding-top: 10px;
+  cursor: pointer;
+  color: #6C757D;
+
+  &:hover{
+    text-decoration: underline;
+    color: #6699b0;
+  }
+}

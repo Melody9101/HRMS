@@ -1,0 +1,79 @@
+<!-- 顯示目前在哪個頁面 -->
+<h4 class="page-title">公司資訊</h4>
+
+<!-- 小導覽條 -->
+<div class="breadcrumb-container">
+  <span class="breadcrumb" (click)="backToHome()">首頁</span>
+  &nbsp;/&nbsp;
+  <span class="breadcrumb" (click)="backToCompanyInfo()">公司資訊</span>
+</div>
+
+<div class="company-information-box">
+  <table class="vertical-table">
+    <tbody style="font-size: 18px;">
+      <tr>
+        <th>公司名稱</th>
+        <td>{{ companyInfo?.name }}</td>
+      </tr>
+      <tr>
+        <th>統一編號</th>
+        <td>{{ companyInfo?.taxIdNumber }}</td>
+      </tr>
+      <tr>
+        <th>負責人</th>
+        <td>{{ companyInfo?.ownerName }}</td>
+      </tr>
+      <tr>
+        <th>電話</th>
+        <td>{{ companyInfo?.phone }}</td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td>{{ companyInfo?.email }}</td>
+      </tr>
+      <tr>
+        <th>地址</th>
+        <td>{{ companyInfo?.address }}</td>
+      </tr>
+      <tr>
+        <th>網站</th>
+        <td>{{ companyInfo?.website }}</td>
+      </tr>
+      <tr>
+        <th>成立日期</th>
+        <td>{{ companyInfo?.establishmentDate | date: "yyyy年MM月dd日" }}</td>
+      </tr>
+      <tr>
+        <th>資本額</th>
+        <td>{{ companyInfo?.capitalAmount }} 元</td>
+      </tr>
+      <tr>
+        <th>員工數</th>
+        <td>{{ companyInfo?.employeeCount }} 人</td>
+      </tr>
+      <tr>
+        <th>狀態</th>
+        <td>{{ companyInfo?.status }}</td>
+      </tr>
+      <tr>
+        <th>上班時間</th>
+        <td>{{ companyInfo?.workStartTime }}</td>
+      </tr>
+      <tr>
+        <th>午休時間</th>
+        <td>{{ companyInfo?.lunchStartTime }} ~ {{ companyInfo?.lunchEndTime }}</td>
+      <tr>
+        <th>時區</th>
+        <td>{{ getTimezoneLabel(companyInfo?.timezone ?? "") }}</td>
+      </tr>
+      <tr>
+        <th>建立時間</th>
+        <td>{{ companyInfo?.createAt | date: "yyyy年MM月dd日 HH:mm:ss" }}</td>
+      </tr>
+      <tr>
+        <th>最後更新時間</th>
+        <td>{{ companyInfo?.updateAt | date: "yyyy年MM月dd日 HH:mm:ss" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

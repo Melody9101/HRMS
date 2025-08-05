@@ -1,0 +1,13 @@
+<div class="card-container">
+  <div class="function-card" (click)="clickCard.emit()" [matBadge]="badgeCount"
+    [matBadgeHidden]="!badgeCount || badgeCount===0" matBadgePosition="after" matBadgeSize="large"
+    [matTooltip]="badgeCount && badgeCount > 0 ? '有 ' + badgeCount + ' 筆待審核' : ''"
+    [matTooltipDisabled]="!badgeCount || badgeCount === 0"
+    >
+    @if(icon){
+    <mat-icon>{{ icon }}</mat-icon>
+    }
+    <h3>{{ title }}</h3>
+    <p>{{ description }}</p>
+  </div>
+</div>

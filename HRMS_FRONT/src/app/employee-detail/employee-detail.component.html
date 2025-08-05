@@ -1,0 +1,248 @@
+<!-- 顯示目前在哪個頁面 -->
+<h4 class="page-title">詳細資訊</h4>
+
+<!-- 小導覽條 -->
+<div class="breadcrumb-container">
+  <span class="breadcrumb" (click)="backToHome()">首頁</span>
+  &nbsp;/&nbsp;
+
+  <!-- 限制權限顯示員工清單 -->
+  @if (canViewEmployeeList()) {
+  <span class="breadcrumb" (click)="backToEmployeeList()">員工清單</span>
+  &nbsp;/&nbsp;
+  }
+  <span class="breadcrumb">詳細資訊</span>
+</div>
+
+<!-- 第一個分頁(員工資本資訊) -->
+<mat-tab-group>
+  @if (canView()) {
+  <mat-tab label="基本資訊">
+
+    <div class="personal-information-box">
+      <!-- 員工基本資訊的表格(無使用material的table) -->
+      <table class="vertical-table">
+        <tbody style="font-size: 18px;">
+
+          <!-- 部門的列 -->
+          <tr>
+            <th>部門</th>
+            <td>{{ getDepartmentName(employee.department) }}</td>
+          </tr>
+
+          <!-- 職稱的列 -->
+          <tr>
+            <th>職稱</th>
+            <td>{{ getGradeLabel(employee) }}</td>
+          </tr>
+
+          <!-- 職等的列 -->
+          <tr>
+            <th>職等</th>
+            <td>{{ employee.grade }}</td>
+          </tr>
+
+          <!-- 姓名的列 -->
+          <tr>
+            <th>姓名</th>
+            <td>{{ employee.name }}</td>
+          </tr>
+
+          <!-- 性別的列 -->
+          <!-- 如果 gender 是 true，就顯示 男；如果是 false，就顯示 女 -->
+          <!-- 顯示性別，根據 employee.gender 的值來判斷 -->
+          <tr>
+            <th>性別</th>
+            <td>{{ employee.gender ? "男" : "女" }}</td>
+          </tr>
+
+          <!-- 手機的列 -->
+          <tr>
+            <th>電話</th>
+            <td>{{ employee.phone }}</td>
+          </tr>
+
+          <!-- 電子信箱的列 -->
+          <tr>
+            <th>電子信箱</th>
+            <td>{{ employee.email }}</td>
+          </tr>
+
+          <!-- 入職日期的列 -->
+          <tr>
+            <th>入職日期</th>
+            <td>{{ employee.entryDate }}</td>
+          </tr>
+
+          <!-- 薪資的列 -->
+          <tr>
+            <th>基本薪資</th>
+            <td>{{ employee.salaries }}</td>
+          </tr>
+
+          <!-- 在職狀態的列 -->
+          <!-- 如果 isEmployed 是 true，就顯示 在職；如果是 false，就顯示 已離職 -->
+          <!-- 顯示性別，根據 employee.isEmployed 的值來判斷 -->
+          <tr>
+            <th>在職狀態</th>
+            <td>{{ employee.employed ? "在職" : "已離職" }}</td>
+          </tr>
+
+          <!-- 離職日期的列 -->
+          <!--
+            判斷條件 employee.resignationDate?.trim()
+            意思是：
+              如果 resignationDate 是 undefined/null，整個條件會是 false，不顯示下面的內容
+              如果 resignationDate 是空字串（例如 ""），trim() 後也是空字串，也不會顯示
+              只有當 resignationDate 有值，且不是全空白時，才會顯示離職的相關資訊
+          -->
+          @if (employee.resignationDate?.trim()) {
+          <tr>
+            <th>離職日期</th>
+            <td>{{ employee.resignationDate }}</td>
+          </tr>
+
+          <!-- 離職原因的列 -->
+          <tr>
+            <th>離職原因</th>
+            <td>{{ employee.resignationReason }}</td>
+          </tr>
+          }
+
+          <!-- 留職停薪起的列 -->
+          <!--
+            判斷條件 employee.unpaidLeaveStartDate?.trim()
+            意思是：
+              如果 unpaidLeaveStartDate 是 undefined/null，整個條件會是 false，不顯示下面的內容
+              如果 unpaidLeaveStartDate 是空字串（例如 ""），trim() 後也是空字串，也不會顯示
+              只有當 unpaidLeaveStartDate 有值，且不是全空白時，才會顯示留職停薪的相關資訊
+          -->
+          @if (employee.unpaidLeaveStartDate?.trim()) {
+          <tr>
+            <th>留職停薪起</th>
+            <td>{{ employee.unpaidLeaveStartDate }}</td>
+          </tr>
+
+          <!-- 留職停薪迄的列 -->
+          <tr>
+            <th>留職停薪迄</th>
+            <td>{{ employee.unpaidLeaveEndDate }}</td>
+          </tr>
+
+          <!-- 停薪原因的列 -->
+          <tr>
+            <th>停薪原因</th>
+            <td>{{ employee.unpaidLeaveReason }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </mat-tab>
+  }
+
+  <!-- 第二個分頁(各類假別剩餘時數) -->
+  @if (canViewLeave()) {
+  <mat-tab label="各類假別剩餘時數">
+    <div class="leave-box">
+      <!-- 員工假別剩餘時數的表格(使用material的table) -->
+      <table mat-table [dataSource]="leaveData" class="mat-elevation-z8 mat-table">
+
+        <!-- 假期名稱的行 -->
+        <ng-container matColumnDef="leaveType">
+          <th mat-header-cell *matHeaderCellDef style="font-size: 18px;">假期名稱</th>
+          <td mat-cell *matCellDef="let record" style="font-size: 18px;">{{ record.leaveType }}</td>
+        </ng-container>
+
+        <!-- 可修時數的行 -->
+        <ng-container matColumnDef="totalHours">
+          <th mat-header-cell *matHeaderCellDef style="font-size: 18px;">可休時數</th>
+          <td mat-cell *matCellDef="let record" style="font-size: 18px;">{{ convertHourToDayHour(record.totalHours) }}
+          </td>
+        </ng-container>
+
+        <!-- 已修時數的行 -->
+        <ng-container matColumnDef="usedHours">
+          <th mat-header-cell *matHeaderCellDef style="font-size: 18px;">已休時數</th>
+          <td mat-cell *matCellDef="let record" style="font-size: 18px;">{{ convertHourToDayHour(record.usedHours) }}
+          </td>
+        </ng-container>
+
+        <!-- 剩餘時數的行 -->
+        <ng-container matColumnDef="remainingHours">
+          <th mat-header-cell *matHeaderCellDef style="font-size: 18px;">剩餘時數</th>
+          <td mat-cell *matCellDef="let record" style="font-size: 18px;">{{ convertHourToDayHour(record.remainingHours)
+            }}
+          </td>
+        </ng-container>
+
+        <!-- class="header-row-style"為更改第一列底色 -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header-row-style"></tr>
+        <!-- 斑馬紋: 滑鼠在某一欄，那一欄會出現底色 -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="zebra-row"></tr>
+      </table>
+    </div>
+  </mat-tab>
+  }
+
+  <!-- 第三個分頁(歷史薪資) -->
+  @if (canViewSalaries()) {
+  <mat-tab label="薪資">
+    <div class="search-div-css">
+      <div class="select-div-css">
+        <!-- 年份篩選的下拉式選單 -->
+        <span>年份</span>
+        <select class="filter-css" [(ngModel)]="selectedYear" (change)="onSelectionChange()">
+          <option [ngValue]="null">全部</option>
+          @for (year of years; track year) {
+          <option [value]="year">{{ year }}</option>
+          }
+        </select>
+
+        <!-- 月份篩選的下拉式選單 -->
+        <span>月份</span>
+        <select class="filter-css" [(ngModel)]="selectedMonth" (change)="onSelectionChange()">
+          <option [ngValue]="null">全部</option>
+          @for (month of months; track month) {
+          <option [value]="month">{{ month }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    @for (salaries of filteredSalaries; track salaries) {
+    <div class="personal-information-box">
+      <!-- 薪資的表格(無使用material的table) -->
+      <table class="vertical-table">
+        <tbody style="font-size: 18px;">
+
+          <!-- 年月份的列 -->
+          <tr>
+            <th>薪資所屬年月份</th>
+            <td>{{ salaries.salariesMonth }}</td>
+          </tr>
+
+          <!-- 基本薪資的列 -->
+          <tr>
+            <th>基本薪資</th>
+            <td>{{ salaries.baseSalaries }} 元整</td>
+          </tr>
+
+          <!-- 獎金的列 -->
+          <tr>
+            <th>獎金</th>
+            <td>{{ salaries.allowance }} 元整</td>
+          </tr>
+
+          <!-- 實發金額的列 -->
+          <tr>
+            <th>實際月薪</th>
+            <td>{{ salaries.actualSalaries }} 元整</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    }
+  </mat-tab>
+  }
+</mat-tab-group>

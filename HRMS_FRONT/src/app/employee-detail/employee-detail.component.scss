@@ -1,0 +1,133 @@
+/* 畫面的主標題 */
+.page-title {
+  margin-left: 10px;
+  color: rgb(70, 166, 240);
+}
+
+/* 小導覽條div的css */
+.breadcrumb-container {
+  background-color: rgb(203, 203, 203);
+  padding: 6px;
+  font-size: 16px;
+}
+
+/* 小導覽條的css */
+.breadcrumb {
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(70, 150, 230);
+  margin: 0 4px;
+  display: inline-block;
+}
+
+/* 滑鼠移至導覽條的字會出現底線 */
+.breadcrumb:hover {
+  text-decoration: underline;
+}
+
+//第一個分頁(員工資本資訊)的css
+/* 個人資訊顯示的表格的div */
+.personal-information-box {
+  width: 800px;
+  margin: 20px auto;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); // 類似 mat-elevation-z8
+}
+
+//第二個分頁(各類假別剩餘時數)的css
+/* 薪資表格的背景框框 */
+.leave-box {
+  width: 70%;
+  margin: 40px auto 0 auto;
+  padding: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: white;
+}
+
+/* 表格第一列底色 */
+.header-row-style {
+  background-color: #e8e8e8;
+  color: #333;
+  font-weight: bold;
+}
+
+/* 斑馬條紋效果，方便閱讀 */
+.zebra-row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* 滑鼠在某一欄，那一欄會出現底色 */
+.zebra-row:hover {
+  background-color: #e3f2fd;
+}
+
+//第三個分頁(歷史薪資)的css
+/* 整個搜尋功能的div */
+.search-div-css {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* 年份、月份div的css */
+.select-div-css {
+  display: flex;
+  align-items: center; // 讓「部門」跟 mat-select 垂直置中
+  gap: 25px; // 控制字與下拉選單的距離
+}
+
+/* 年份、月份篩選器的css */
+.filter-css {
+  height: 40px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+/* 薪資顯示的表格的div */
+.salary-box {
+  width: 800px;
+  margin: 20px auto;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); // 類似 mat-elevation-z8
+}
+
+//原生表格的全部css
+/* 表格樣式 */
+.vertical-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Roboto, 'Noto Sans TC', sans-serif;
+  font-size: 14px;
+}
+
+/* 標題欄 */
+.vertical-table th {
+  width: 180px;
+  text-align: left;
+  padding: 10px 12px;
+  background-color: #e8e8e8;
+  color: #333;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* 數值欄 */
+.vertical-table td {
+  padding: 10px 12px;
+  text-align: left;
+  background-color: #fafafa;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* 最後一列不要底線 */
+.vertical-table tr:last-child th,
+.vertical-table tr:last-child td {
+  border-bottom: none;
+}

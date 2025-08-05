@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.Human_Resource_Management_System_HRMS_.dao.EmployeeDao">
+
+    <resultMap id="employeeResultMap"
+    	type="com.example.Human_Resource_Management_System_HRMS_.dto.EmployeeDto">
+        <id column="id" property="id"/>
+        <result column="department" property="department"/>
+        <result column="name" property="name"/>
+        <result column="email" property="email"/>
+        <result column="password" property="password"/>
+        <result column="phone" property="phone"/>
+        <result column="gender" property="gender"/>
+        <result column="grade" property="grade"/>
+        <result column="entry_date" property="entryDate"/>
+        <result column="resignation_date" property="resignationDate"/>
+        <result column="resignation_reason" property="resignationReason"/>
+        <result column="salaries" property="salaries"/>
+        <result column="employed" property="employed"/>
+        <result column="remaining_previous_annual_leave" property="remainingPreviousAnnualLeave" jdbcType="DECIMAL"/>
+        <result column="remaining_current_annual_leave" property="remainingCurrentAnnualLeave" jdbcType="DECIMAL"/>
+        <result column="remaining_paid_sick_leave" property="remainingPaidSickLeave" jdbcType="DECIMAL"/>
+        <result column="unpaid_leave_start_date" property="unpaidLeaveStartDate"/>
+        <result column="unpaid_leave_end_date" property="unpaidLeaveEndDate"/>
+        <result column="unpaid_leave_reason" property="unpaidLeaveReason"/>
+        <result column="position" property="position"/>
+        <result column="final_update_date" property="finalUpdateDate"/>
+        <result column="final_update_employee_id" property="finalUpdateEmployeeId"/>
+    </resultMap>
+    
+    <!-- 方法1-addEmployee: 新增員工資訊(新進員工)。 -->
+    <insert id="addEmployee">
+    	insert into employee 
+    		(department,
+    		 name, 
+    		 email, 
+    		 password, 
+    		 phone, 
+    		 gender, 
+    		 grade, 
+    		 entry_date, 
+    		 salaries, 
+    		 employed, 
+    		 position, 
+    		 remaining_paid_sick_leave, 
+    		 final_update_date, 
+    		 final_update_employee_id)
+		 values
+		  	(#{department},
+		  	 #{name}, 
+		  	 #{email}, 
+		  	 #{password}, 
+		  	 #{phone}, 
+		  	 #{gender}, 
+		  	 #{grade}, 
+		  	 #{entryDate}, 
+		  	 #{salaries}, 
+		  	 #{employed}, 
+		  	 #{position}, 
+		  	 5.0000, 
+		  	 #{finalUpdateDate}, 
+		  	 #{finalUpdateEmployeeId})
+    </insert>
+	
+	<!-- 方法2-updateEmployeeBasicInfo: 透過員編編輯員工基本資訊。 -->
+	<update id="updateEmployeeBasicInfo">
+		update employee set
+			 name = #{name},
+			 email = #{email},
+			 phone = #{phone},
+   	 	     gender = #{gender},
+   		     final_update_date = #{finalUpdateDate},
+    	     final_update_employee_id = #{finalUpdateEmployeeId}
+		 where id = #{id}
+	</update>
+	
+	<!-- 方法3-updateEmployeeJob: 透過員編編輯員工調部門、職等、薪資和權等的資訊。 -->
+	<update id="updateEmployeeJob">
+		update employee set
+			 department = #{department},
+	         grade = #{grade},
+	         salaries = #{salaries},
+	         position = #{position},
+         	 final_update_date = #{finalUpdateDate},
+         	 final_update_employee_id = #{finalUpdateEmployeeId}
+    	 where id = #{id}
+	</update>
+	
+	<!-- 方法4-resignEmployee: 透過員編處理員工離職。(1)需填寫離職日期、離職理由。(2)離職後薪水將被自動歸零salaries = 0、雇傭狀態也將自動更新為離職employed = false。 -->
+	<update id="resignEmployee">
+    	update employee set
+	        resignation_date = #{resignationDate},
+	        resignation_reason = #{resignationReason},
+	        salaries = 0,
+	        employed = false,
+	        remaining_previous_annual_leave = 0,
+	        remaining_current_annual_leave = 0,
+	        remaining_paid_sick_leave = 0,
+         	final_update_date = #{finalUpdateDate},
+         	final_update_employee_id = #{finalUpdateEmployeeId}
+    	 where id = #{id}
+	</update>
+	
+	<!-- 方法5-updateEmployeePassword: 透過信箱更新員工密碼。 -->
+	<update id="updateEmployeePassword">
+		update employee set
+			 password = #{newPassword}
+		 where email = #{email}
+	</update>
+	
+	<!-- 方法8-updateEmployeeUnpaidLeaveById: 透過員編編輯員工無薪假起始日期、結束日期與無薪假、停職留薪。 -->
+	<update id="updateEmployeeUnpaidLeaveById">
+		update employee set
+		 	unpaid_leave_start_date = #{unpaidLeaveStartDate},
+		 	unpaid_leave_end_date = #{unpaidLeaveEndDate},
+		 	unpaid_leave_reason = #{unpaidLeaveReason},
+         	final_update_date = #{finalUpdateDate},
+         	final_update_employee_id = #{finalUpdateEmployeeId}
+		 where id = #{id}
+	</update>
+	
+	<!-- 方法9-getAllEmployees: 取得所有在職員工資料。 -->
+	<select id="getAllEmployees" resultMap="employeeResultMap">
+		select * from employee where employed is true
+	</select>
+	
+	<!-- 方法10-selectByEmployeeIdList: 透過員編查詢員工資料(可一次查詢多位員工資料)。 -->
+	<select id="selectByEmployeeIdList" resultMap="employeeResultMap">
+    	select * from employee
+    	<where>
+    	<if test="idList != null and idList.size() > 0">
+            id in
+            <foreach item="idItem" collection="idList" open="(" separator="," close=")">
+                #{idItem}
+            </foreach>
+        </if>
+        and employed = true
+        </where>
+	</select>
+	
+	<!-- 方法11-selectByEmployeeId: 透過員編查詢員工資料(檢查比對用)。 -->
+	<select id="selectByEmployeeId" resultMap="employeeResultMap">
+		select * from employee where id = #{id}
+	</select>
+	
+	<!-- 方法12-selectByEmployeeEmail: 透過員工信箱查詢員工資料(檢查比對用)。 -->
+	<select id="selectByEmployeeEmail" resultMap="employeeResultMap">
+		select * from employee where email = #{email}
+	</select>
+	
+	<!-- 方法13-countByEmail: 比對email信箱是否重複。 -->
+    <select id="countByEmail" resultType="java.lang.Integer">
+		select count(email) from employee where email = #{email}
+	</select>
+	
+	<!-- 方法14-countById: 比對id員編是否存在。 -->
+	<select id="countById" resultType="java.lang.Integer">
+		select count(id) from employee where id = #{id}
+	</select>
+
+	<update id="updateRemainingLeave" parameterType="com.example.Human_Resource_Management_System_HRMS_.dto.EmployeeDto">
+		update employee set
+			 remaining_current_annual_leave = #{remainingCurrentAnnualLeave},
+			 remaining_previous_annual_leave = #{remainingPreviousAnnualLeave},
+			 remaining_paid_sick_leave = #{remainingPaidSickLeave}
+			 where id = #{id}
+	</update>
+	
+	<select id="selectByEmailAndPhone">
+		select * from employee where email = #{email} and phone = #{phone} and employed is false
+	</select>
+	
+	<update id="reinstatementEmployee">
+	    update employee set
+	        department = #{department},
+	        email = #{email},
+	        password = #{password},
+	        phone = #{phone},
+	        grade = #{grade},
+	        entry_date = #{entryDate},
+	        resignation_date = #{resignationDate},
+	        resignation_reason = #{resignationReason},
+	        salaries = #{salaries},
+	        position = #{position},
+	        employed = #{employed},
+	        remaining_previous_annual_leave = #{remainingPreviousAnnualLeave},
+	        remaining_current_annual_leave = #{remainingCurrentAnnualLeave},
+	        remaining_paid_sick_leave = #{remainingPaidSickLeave},
+	        unpaid_leave_start_date = #{unpaidLeaveStartDate},
+	        unpaid_leave_end_date = #{unpaidLeaveEndDate},
+	        unpaid_leave_reason = #{unpaidLeaveReason},
+	        final_update_date = #{finalUpdateDate},
+	        final_update_employee_id = #{finalUpdateEmployeeId}
+	     where id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,62 @@
+<div class="leave-detail-panel">
+  <h5 class="detail-title">補證明文件</h5>
+  <mat-divider></mat-divider>
+
+  <table class="detail-table">
+    <tr>
+      <td class="label">申請日期</td>
+      <td class="content">
+        {{ time.formatISODateTimeString(element.applyDateTime,false) }}
+      </td>
+    </tr>
+    <tr>
+      <td class="label">請假時間</td>
+      <td class="content">
+        {{ time.formatISODateTimeString(element.startTime) }} ~
+        {{ time.formatISODateTimeString(element.endTime) }}
+      </td>
+    </tr>
+    <tr>
+      <td class="label">申請假別</td>
+      <td class="content">
+        {{ takeLeave.formatLeaveType(element.leaveType) }}
+      </td>
+    </tr>
+  </table>
+  <mat-divider></mat-divider>
+
+    <div class="file-row">
+      <input
+        type="file"
+        id="uploadFile"
+        accept=".pdf, .jpg , .jpeg , .png"
+        (change)="handleFileUpload($event)"
+        hidden
+      />
+      <label for="uploadFile" class="uploadFile-btn">選擇檔案</label>
+      @if(certificate){
+      <a [href]="takeLeave.generatePreviewUrl(certificate)" target="_blank">
+        {{ certificate.name }}
+      </a>
+      }@else if(!certificate && fileErrorHint){
+      <span>{{ fileErrorHint }}</span>
+      }@else if(!certificate){
+      <span>僅接受PDF、JPG、PNG檔，大小不可超過300KB</span>
+      }
+    </div>
+
+    <div class="btn-group" role="group">
+      <button
+        class="btn cancel-btn"
+        (click)="onCancel()"
+      >
+        取消
+      </button>
+      <button
+        class="btn confirm-btn"
+        (click)="onConfirm(element)"
+      >
+        送出
+      </button>
+    </div>
+  </div>

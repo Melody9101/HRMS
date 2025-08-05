@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.Human_Resource_Management_System_HRMS_.dao.EmailVerificationDao">
+
+    <resultMap id="emailVerificationMap"
+    	type="com.example.Human_Resource_Management_System_HRMS_.dto.EmailVerificationDto">
+        <id column="email" property="email"/>
+       	<result property="code" column="code" />
+		<result property="expireAt" column="expire_at" />
+		<result property="verified" column="verified" />
+    </resultMap>
+    
+	<select id="selectByEmail" resultMap="emailVerificationMap">
+  		 select * from email_verification where email = #{email}
+	</select>
+
+	<insert id="insertOrUpdate" >
+		insert into email_verification (email, code, expire_at)
+		 values
+			 (#{email}, #{code}, #{expireAt})
+			 on duplicate key update
+			 code = #{code},
+			 expire_at = #{expireAt}
+	</insert>
+	
+	<update id="updateVerified">
+		update email_verification set
+		 verified = true
+		 where email = #{email}
+	</update>
+
+	<delete id="deleteAll">
+		 delete from email_verification
+		 	 where expire_at &lt; now() - INTERVAL 20 MINUTE
+	</delete>
+ 
+</mapper>

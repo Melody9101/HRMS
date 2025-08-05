@@ -1,0 +1,16 @@
+<div class="notify-panel">
+  <h5>通知</h5>
+  <mat-divider></mat-divider>
+  @for(item of data.notifications ; track $index){
+    <div class="notify-item" >
+      <div class="circle"></div>
+      <div class="notify-content">
+        <div class="notify-title-row" style="display: flex;">
+          <p class="notify-title">{{ formatExceptionReason(item.reason) }}</p>
+        </div>
+        <p class="notify-time">{{data.date}} </p>
+      </div>
+    </div>
+  }
+</div>
+
